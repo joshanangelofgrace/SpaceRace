@@ -1,4 +1,4 @@
-namespace SpaceRace.Domain;
+namespace SpaceRace.Features.EngineDialTicks.Models;
 
 /// <summary>
 /// A single engine throttle dial. The dial is continuous and numbered 0-9:

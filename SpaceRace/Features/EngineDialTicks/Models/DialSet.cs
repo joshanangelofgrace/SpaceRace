@@ -1,4 +1,4 @@
-namespace SpaceRace.Domain;
+namespace SpaceRace.Features.EngineDialTicks.Models;
 
 /// <summary>
 /// One set of engine dials: the current readings and the expected readings the

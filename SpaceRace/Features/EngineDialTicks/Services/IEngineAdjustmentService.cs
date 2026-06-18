@@ -1,7 +1,7 @@
 using System.Numerics;
-using SpaceRace.Domain;
+using SpaceRace.Features.EngineDialTicks.Models;
 
-namespace SpaceRace.Application;
+namespace SpaceRace.Features.EngineDialTicks.Services;
 
 /// <summary>
 /// Calculates how the spaceship engines must be adjusted to support the atmosphere.

@@ -1,7 +1,7 @@
 using System.Numerics;
-using SpaceRace.Domain;
+using SpaceRace.Features.EngineDialTicks.Models;
 
-namespace SpaceRace.Application;
+namespace SpaceRace.Features.EngineDialTicks.Services;
 
 /// <inheritdoc />
 public sealed class EngineAdjustmentService : IEngineAdjustmentService

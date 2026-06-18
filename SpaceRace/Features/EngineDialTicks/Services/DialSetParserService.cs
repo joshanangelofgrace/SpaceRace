@@ -1,13 +1,13 @@
-using SpaceRace.Domain;
+using SpaceRace.Features.EngineDialTicks.Models;
 
-namespace SpaceRace.Infrastructure;
+namespace SpaceRace.Features.EngineDialTicks.Services;
 
 /// <summary>
 /// Parses raw text lines into dial sets. Each set is a pair of whitespace-separated
 /// number lines: the current readings followed by the expected readings. Blank lines
 /// are ignored.
 /// </summary>
-public static class DialSetParser
+public static class DialSetParserService
 {
     public static IReadOnlyList<DialSet> Parse(IEnumerable<string> lines)
     {

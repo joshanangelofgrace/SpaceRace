@@ -1,4 +1,4 @@
-namespace SpaceRace.Application;
+namespace SpaceRace.Infrastructure;
 
 /// <summary>
 /// The terminal front end: shows a numbered menu of every registered

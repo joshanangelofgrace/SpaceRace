@@ -1,4 +1,4 @@
-namespace SpaceRace.Application;
+namespace SpaceRace.Infrastructure;
 
 /// <summary>
 /// One selectable function in the terminal menu. Implement this interface and register
