@@ -18,6 +18,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using SpaceRace.Features.EngineDialTicks.Functions;
 using SpaceRace.Features.EngineDialTicks.Services;
+using SpaceRace.Features.GateSequence.Functions;
+using SpaceRace.Features.GateSequence.Services;
 using SpaceRace.Infrastructure;
 
 var services = new ServiceCollection();
@@ -26,8 +28,13 @@ var services = new ServiceCollection();
 services.AddSingleton<IDialSetReaderService, FileDialSetReaderService>();
 services.AddSingleton<IEngineAdjustmentService, EngineAdjustmentService>();
 
+// --- Gate sequence decoding ---
+services.AddSingleton<ISequenceReaderService, SequenceReaderService>();
+services.AddSingleton<ISequenceDecodeService, SequenceDecodeService>();
+
 // --- Menu functions (register additional IAppFunction implementations here) ---
 services.AddSingleton<IAppFunction, TickProcessingFunction>();
+services.AddSingleton<IAppFunction, SequenceDecodeFunction>();
 services.AddSingleton<MenuApp>();
 
 using ServiceProvider provider = services.BuildServiceProvider();

@@ -22,6 +22,9 @@ public sealed class MenuApp
 
     public void Run()
     {
+        ConsoleTheme.Apply();
+        ConsoleTheme.WriteBanner();
+
         while (true)
         {
             ShowMenu();
@@ -31,7 +34,7 @@ public sealed class MenuApp
             // Null means end-of-input (e.g. piped/redirected stdin exhausted): exit cleanly.
             if (choice is null || choice == "0")
             {
-                Console.WriteLine("Goodbye.");
+                ConsoleTheme.WriteLine("\nSafe travels, crew. Goodbye.", ConsoleTheme.Highlight);
                 return;
             }
 
@@ -42,23 +45,30 @@ public sealed class MenuApp
             }
             else
             {
-                Console.WriteLine($"\nInvalid selection: '{choice}'. Please enter a number from the menu.\n");
+                ConsoleTheme.WriteLine(
+                    $"\nInvalid selection: '{choice}'. Please enter a number from the menu.\n",
+                    ConsoleTheme.Error);
             }
         }
     }
 
     private void ShowMenu()
     {
-        Console.WriteLine($"=== {Title} ===");
+        Console.WriteLine();
+        ConsoleTheme.WriteLine($"==={{ {Title} }}===", ConsoleTheme.Highlight);
         for (int i = 0; i < _functions.Count; i++)
-            Console.WriteLine($"{i + 1}. {_functions[i].Title}");
-        Console.WriteLine("0. Exit");
-        Console.Write("Select an option: ");
+        {
+            ConsoleTheme.Write($"  [{i + 1}] ", ConsoleTheme.Highlight);
+            ConsoleTheme.WriteLine(_functions[i].Title, ConsoleTheme.Primary);
+        }
+        ConsoleTheme.Write("  [0] ", ConsoleTheme.Highlight);
+        ConsoleTheme.WriteLine("Exit", ConsoleTheme.Dim);
+        ConsoleTheme.Write("▶ Select an option: ", ConsoleTheme.Highlight);
     }
 
     private static void RunFunction(IAppFunction function)
     {
-        Console.WriteLine($"\n--- {function.Title} ---");
+        ConsoleTheme.WriteLine($"\n--- {function.Title} ---", ConsoleTheme.Highlight);
         try
         {
             function.Run();
@@ -68,7 +78,7 @@ public sealed class MenuApp
                                       or ArgumentOutOfRangeException
                                       or FileNotFoundException)
         {
-            Console.Error.WriteLine($"Error: {ex.Message}");
+            ConsoleTheme.WriteLine($"Error: {ex.Message}", ConsoleTheme.Error);
         }
 
         Console.WriteLine();

@@ -1,4 +1,3 @@
-using SpaceRace.Application;
 using SpaceRace.Features.EngineDialTicks.Models;
 using SpaceRace.Features.EngineDialTicks.Services;
 using SpaceRace.Infrastructure;
