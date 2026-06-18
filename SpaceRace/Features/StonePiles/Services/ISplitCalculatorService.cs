@@ -15,3 +15,4 @@ public interface ISplitCalculatorService
     /// <summary>Evaluates every pile and concatenates the per-row results.</summary>
     PileSplitReport Evaluate(IEnumerable<StonePile> piles);
 }
+ 
