@@ -20,6 +20,8 @@ using SpaceRace.Features.EngineDialTicks.Functions;
 using SpaceRace.Features.EngineDialTicks.Services;
 using SpaceRace.Features.GateSequence.Functions;
 using SpaceRace.Features.GateSequence.Services;
+using SpaceRace.Features.SymbolDependencies.Functions;
+using SpaceRace.Features.SymbolDependencies.Services;
 using SpaceRace.Infrastructure;
 
 var services = new ServiceCollection();
@@ -32,9 +34,14 @@ services.AddSingleton<IEngineAdjustmentService, EngineAdjustmentService>();
 services.AddSingleton<ISequenceReaderService, SequenceReaderService>();
 services.AddSingleton<ISequenceDecodeService, SequenceDecodeService>();
 
+// --- Symbol dependency checking ---
+services.AddSingleton<IDependencyReaderService, DependencyReaderService>();
+services.AddSingleton<IDependencyCheckService, DependencyCheckService>();
+
 // --- Menu functions (register additional IAppFunction implementations here) ---
 services.AddSingleton<IAppFunction, TickProcessingFunction>();
 services.AddSingleton<IAppFunction, SequenceDecodeFunction>();
+services.AddSingleton<IAppFunction, DependencyCheckFunction>();
 services.AddSingleton<MenuApp>();
 
 using ServiceProvider provider = services.BuildServiceProvider();
