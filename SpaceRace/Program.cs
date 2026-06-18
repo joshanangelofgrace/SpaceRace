@@ -20,6 +20,8 @@ using SpaceRace.Features.EngineDialTicks.Functions;
 using SpaceRace.Features.EngineDialTicks.Services;
 using SpaceRace.Features.GateSequence.Functions;
 using SpaceRace.Features.GateSequence.Services;
+using SpaceRace.Features.StonePiles.Functions;
+using SpaceRace.Features.StonePiles.Services;
 using SpaceRace.Features.SymbolDependencies.Functions;
 using SpaceRace.Features.SymbolDependencies.Services;
 using SpaceRace.Infrastructure;
@@ -38,10 +40,15 @@ services.AddSingleton<ISequenceDecodeService, SequenceDecodeService>();
 services.AddSingleton<IDependencyReaderService, DependencyReaderService>();
 services.AddSingleton<IDependencyCheckService, DependencyCheckService>();
 
+// --- Stone pile splitting ---
+services.AddSingleton<IStonePileReaderService, StonePileReaderService>();
+services.AddSingleton<ISplitCalculatorService, SplitCalculatorService>();
+
 // --- Menu functions (register additional IAppFunction implementations here) ---
 services.AddSingleton<IAppFunction, TickProcessingFunction>();
 services.AddSingleton<IAppFunction, SequenceDecodeFunction>();
 services.AddSingleton<IAppFunction, DependencyCheckFunction>();
+services.AddSingleton<IAppFunction, StonePileSplitFunction>();
 services.AddSingleton<MenuApp>();
 
 using ServiceProvider provider = services.BuildServiceProvider();
