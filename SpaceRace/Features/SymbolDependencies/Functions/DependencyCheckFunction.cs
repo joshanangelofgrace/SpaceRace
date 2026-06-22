@@ -18,8 +18,9 @@ public sealed class DependencyCheckFunction(IDependencyReaderService reader, IDe
 
     public void Run()
     {
-        IReadOnlyList<IReadOnlyList<Dependency>> lines = _reader.Read();
-        DependencyReport report = _service.Evaluate(lines);
+        ReadResult<IReadOnlyList<IReadOnlyList<Dependency>>> input = _reader.Read();
+        Console.WriteLine($"Reading dependencies from: {input.Source}\n");
+        DependencyReport report = _service.Evaluate(input.Data);
 
         int lineNumber = 1;
         foreach (DependencyCheck check in report.Lines)

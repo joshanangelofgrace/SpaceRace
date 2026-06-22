@@ -12,10 +12,9 @@ public sealed class FileDialSetReaderService : IDialSetReaderService
 {
     private const string FileName = "dialticks.txt";
 
-    public IReadOnlyList<DialSet> Read()
+    public ReadResult<IReadOnlyList<DialSet>> Read()
     {
         string path = InputFileLocator.FindRequired(FileName);
-        Console.WriteLine($"Reading dial sets from: {path}\n");
-        return DialSetParserService.Parse(File.ReadLines(path));
+        return new ReadResult<IReadOnlyList<DialSet>>(path, DialSetParserService.Parse(File.ReadLines(path)));
     }
 }

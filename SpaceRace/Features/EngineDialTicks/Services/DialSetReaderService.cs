@@ -1,4 +1,5 @@
 using SpaceRace.Features.EngineDialTicks.Models;
+using SpaceRace.Infrastructure;
 
 namespace SpaceRace.Features.EngineDialTicks.Services;
 
@@ -9,16 +10,12 @@ namespace SpaceRace.Features.EngineDialTicks.Services;
 /// </summary>
 public sealed class DialSetReaderService : IDialSetReaderService
 {
-    public IReadOnlyList<DialSet> Read()
+    public ReadResult<IReadOnlyList<DialSet>> Read()
     {
         List<string> lines = ReadStdinLines();
+        string source = lines.Count == 0 ? "no input provided" : "standard input";
 
-        if (lines.Count == 0)
-        {
-            Console.WriteLine("No input provided\n");
-        }
-
-        return DialSetParserService.Parse(lines);
+        return new ReadResult<IReadOnlyList<DialSet>>(source, DialSetParserService.Parse(lines));
     }
 
     private static List<string> ReadStdinLines()

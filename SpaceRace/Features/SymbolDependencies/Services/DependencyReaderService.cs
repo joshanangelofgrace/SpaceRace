@@ -12,10 +12,9 @@ public sealed class DependencyReaderService : IDependencyReaderService
 {
     private const string FileName = "symboldependencies.txt";
 
-    public IReadOnlyList<IReadOnlyList<Dependency>> Read()
+    public ReadResult<IReadOnlyList<IReadOnlyList<Dependency>>> Read()
     {
         string path = InputFileLocator.FindRequired(FileName);
-        Console.WriteLine($"Reading dependencies from: {path}\n");
-        return DependencyParserService.Parse(File.ReadLines(path));
+        return new ReadResult<IReadOnlyList<IReadOnlyList<Dependency>>>(path, DependencyParserService.Parse(File.ReadLines(path)));
     }
 }

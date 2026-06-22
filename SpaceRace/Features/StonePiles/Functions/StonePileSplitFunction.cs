@@ -18,8 +18,9 @@ public sealed class StonePileSplitFunction(IStonePileReaderService reader, ISpli
 
     public void Run()
     {
-        IReadOnlyList<StonePile> piles = _reader.Read();
-        PileSplitReport report = _service.Evaluate(piles);
+        ReadResult<IReadOnlyList<StonePile>> input = _reader.Read();
+        Console.WriteLine($"Reading stone piles from: {input.Source}\n");
+        PileSplitReport report = _service.Evaluate(input.Data);
 
         int rowNumber = 1;
         foreach (PileSplit row in report.Rows)

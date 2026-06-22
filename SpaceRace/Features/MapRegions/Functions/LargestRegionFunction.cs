@@ -17,7 +17,9 @@ public sealed class LargestRegionFunction(IMapGridReaderService reader, IRegionF
 
     public void Run()
     {
-        MapGrid grid = _reader.Read();
+        ReadResult<MapGrid> input = _reader.Read();
+        Console.WriteLine($"Reading map from: {input.Source}\n");
+        MapGrid grid = input.Data;
         RegionReport report = _service.FindRegions(grid);
 
         Console.WriteLine($"Map: {grid.RowCount} row(s), {report.RegionSizes.Count} region(s) found.");

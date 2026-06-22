@@ -18,8 +18,9 @@ public sealed class SequenceDecodeFunction(ISequenceReaderService reader, ISeque
 
     public void Run()
     {
-        IReadOnlyList<IReadOnlyList<int>> sequences = _reader.Read();
-        SequenceDecodeReport report = _service.Decode(sequences);
+        ReadResult<IReadOnlyList<IReadOnlyList<int>>> input = _reader.Read();
+        Console.WriteLine($"Reading sequences from: {input.Source}\n");
+        SequenceDecodeReport report = _service.Decode(input.Data);
 
         int lineNumber = 1;
         foreach (SequenceDecode line in report.Lines)

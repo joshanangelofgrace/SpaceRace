@@ -14,7 +14,7 @@ public sealed class MenuApp
     public MenuApp(IEnumerable<IAppFunction> functions)
     {
         ArgumentNullException.ThrowIfNull(functions);
-        _functions = functions.ToList();
+        _functions = [.. functions];
 
         if (_functions.Count == 0)
             throw new ArgumentException("At least one function must be registered.", nameof(functions));

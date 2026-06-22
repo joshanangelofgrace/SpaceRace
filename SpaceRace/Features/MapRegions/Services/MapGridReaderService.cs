@@ -11,10 +11,9 @@ public sealed class MapGridReaderService : IMapGridReaderService
 {
     private const string FileName = "mapregions.txt";
 
-    public MapGrid Read()
+    public ReadResult<MapGrid> Read()
     {
         string path = InputFileLocator.FindRequired(FileName);
-        Console.WriteLine($"Reading map from: {path}\n");
-        return MapParserService.Parse(File.ReadLines(path));
+        return new ReadResult<MapGrid>(path, MapParserService.Parse(File.ReadLines(path)));
     }
 }

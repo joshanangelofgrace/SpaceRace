@@ -1,9 +1,10 @@
 using SpaceRace.Features.StonePiles.Models;
+using SpaceRace.Infrastructure;
 
 namespace SpaceRace.Features.StonePiles.Services;
 
-/// <summary>Supplies the stone piles to be evaluated.</summary>
+/// <summary>Supplies the stone piles to be evaluated, with a description of their source.</summary>
 public interface IStonePileReaderService
 {
-    IReadOnlyList<StonePile> Read();
+    ReadResult<IReadOnlyList<StonePile>> Read();
 }

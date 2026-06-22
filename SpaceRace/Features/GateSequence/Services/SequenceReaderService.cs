@@ -11,10 +11,9 @@ public sealed class SequenceReaderService : ISequenceReaderService
 {
     private const string FileName = "gatesequence.txt";
 
-    public IReadOnlyList<IReadOnlyList<int>> Read()
+    public ReadResult<IReadOnlyList<IReadOnlyList<int>>> Read()
     {
         string path = InputFileLocator.FindRequired(FileName);
-        Console.WriteLine($"Reading sequences from: {path}\n");
-        return SequenceParserService.Parse(File.ReadLines(path));
+        return new ReadResult<IReadOnlyList<IReadOnlyList<int>>>(path, SequenceParserService.Parse(File.ReadLines(path)));
     }
 }

@@ -12,10 +12,9 @@ public sealed class StonePileReaderService : IStonePileReaderService
 {
     private const string FileName = "stonepiles.txt";
 
-    public IReadOnlyList<StonePile> Read()
+    public ReadResult<IReadOnlyList<StonePile>> Read()
     {
         string path = InputFileLocator.FindRequired(FileName);
-        Console.WriteLine($"Reading stone piles from: {path}\n");
-        return StonePileParserService.Parse(File.ReadLines(path));
+        return new ReadResult<IReadOnlyList<StonePile>>(path, StonePileParserService.Parse(File.ReadLines(path)));
     }
 }
