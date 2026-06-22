@@ -69,18 +69,7 @@ public sealed class MenuApp
     private static void RunFunction(IAppFunction function)
     {
         ConsoleTheme.WriteLine($"\n--- {function.Title} ---", ConsoleTheme.Highlight);
-        try
-        {
-            function.Run();
-        }
-        catch (Exception ex) when (ex is FormatException
-                                      or ArgumentException
-                                      or ArgumentOutOfRangeException
-                                      or FileNotFoundException)
-        {
-            ConsoleTheme.WriteLine($"Error: {ex.Message}", ConsoleTheme.Error);
-        }
-
+        FunctionErrorHandler.Run(function.Run);
         Console.WriteLine();
     }
 }
