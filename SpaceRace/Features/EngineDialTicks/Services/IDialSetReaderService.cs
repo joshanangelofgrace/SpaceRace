@@ -6,5 +6,5 @@ namespace SpaceRace.Features.EngineDialTicks.Services;
 /// <summary>Supplies the dial sets to be processed, with a description of their source.</summary>
 public interface IDialSetReaderService
 {
-    ReadResult<IReadOnlyList<DialSet>> Read();
+    ReadResult<List<DialSet>> Read();
 }

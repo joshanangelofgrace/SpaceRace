@@ -19,7 +19,7 @@ public sealed class TickProcessingFunction(IDialSetReaderService reader, IEngine
 
     public void Run()
     {
-        ReadResult<IReadOnlyList<DialSet>> input = _reader.Read();
+        ReadResult<List<DialSet>> input = _reader.Read();
         Console.WriteLine($"Reading dial sets from: {input.Source}\n");
         IReadOnlyList<DialSet> sets = input.Data;
 

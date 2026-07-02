@@ -30,7 +30,7 @@ public sealed class SequenceDecodeService : ISequenceDecodeService
         if (values.Count == 0)
             throw new ArgumentException("Cannot take the median of an empty sequence.", nameof(values));
 
-        int[] sorted = values.OrderBy(v => v).ToArray();
+        int[] sorted = [.. values.OrderBy(v => v)];
         int mid = sorted.Length / 2;
 
         // Odd count: the single middle element is already an integer.

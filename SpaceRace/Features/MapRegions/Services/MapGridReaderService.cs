@@ -14,6 +14,36 @@ public sealed class MapGridReaderService : IMapGridReaderService
     public ReadResult<MapGrid> Read()
     {
         string path = InputFileLocator.FindRequired(FileName);
-        return new ReadResult<MapGrid>(path, MapParserService.Parse(File.ReadLines(path)));
+        return new ReadResult<MapGrid>(path, Parse(File.ReadLines(path)));
+    }
+
+
+    private static readonly char[] Separators = [',', ' ', '\t'];
+
+    public static MapGrid Parse(IEnumerable<string> lines)
+    {
+        ArgumentNullException.ThrowIfNull(lines);
+
+        var rows = new List<IReadOnlyList<int>>();
+        foreach (string line in lines)
+        {
+            if (string.IsNullOrWhiteSpace(line))
+                continue;
+
+            string[] tokens = line.Split(Separators, StringSplitOptions.RemoveEmptyEntries);
+            var row = new int[tokens.Length];
+            for (int i = 0; i < tokens.Length; i++)
+            {
+                if (!int.TryParse(tokens[i], out row[i]))
+                    throw new FormatException($"'{tokens[i]}' is not a valid cell value.");
+            }
+
+            rows.Add(row);
+        }
+
+        if (rows.Count == 0)
+            throw new FormatException("The map is empty.");
+
+        return new MapGrid(rows);
     }
 }

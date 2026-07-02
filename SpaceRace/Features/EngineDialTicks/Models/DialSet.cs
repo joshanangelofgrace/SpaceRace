@@ -6,10 +6,10 @@ namespace SpaceRace.Features.EngineDialTicks.Models;
 /// </summary>
 public sealed class DialSet
 {
-    public IReadOnlyList<Dial> Current { get; }
-    public IReadOnlyList<Dial> Expected { get; }
+    public List<Dial> Current { get; }
+    public List<Dial> Expected { get; }
 
-    public DialSet(IReadOnlyList<Dial> current, IReadOnlyList<Dial> expected)
+    public DialSet(List<Dial> current, List<Dial> expected)
     {
         ArgumentNullException.ThrowIfNull(current);
         ArgumentNullException.ThrowIfNull(expected);

@@ -10,25 +10,35 @@ namespace SpaceRace.Features.EngineDialTicks.Services;
 /// </summary>
 public sealed class DialSetReaderService : IDialSetReaderService
 {
-    public ReadResult<IReadOnlyList<DialSet>> Read()
-    {
-        List<string> lines = ReadStdinLines();
-        string source = lines.Count == 0 ? "no input provided" : "standard input";
+    private const string FileName = "dialticks.txt";
 
-        return new ReadResult<IReadOnlyList<DialSet>>(source, DialSetParserService.Parse(lines));
+    public ReadResult<List<DialSet>> Read()
+    {
+        string path = InputFileLocator.FindRequired(FileName);
+        return new ReadResult<List<DialSet>>(path, ParseLine(File.ReadLines(path)));
     }
 
-    private static List<string> ReadStdinLines()
+    private static List<DialSet> ParseLine(IEnumerable<string> lines)
     {
-        var lines = new List<string>();
+        ArgumentNullException.ThrowIfNull(lines);
 
-        if (Console.IsInputRedirected)
+        List<string> nonBlank = [.. lines.Where(line => !string.IsNullOrWhiteSpace(line))];
+
+        if (nonBlank.Count % 2 != 0)
+            throw new FormatException(
+                "Expected an even number of non-blank lines (a current/expected pair per dial set).");
+
+        var sets = new List<DialSet>(nonBlank.Count / 2);
+        for (int i = 0; i < nonBlank.Count; i += 2)
         {
-            string? line;
-            while ((line = Console.ReadLine()) != null)
-                lines.Add(line);
+            List<Dial> current = ParseLine(nonBlank[i]);
+            List<Dial> expected = ParseLine(nonBlank[i + 1]);
+            sets.Add(new DialSet(current, expected));
         }
 
-        return lines;
+        return sets;
     }
+
+    private static List<Dial> ParseLine(string line) =>
+        [.. line.Select(token => new Dial(int.Parse(token.ToString())))];
 }
